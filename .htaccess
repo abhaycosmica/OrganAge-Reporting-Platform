@@ -1,0 +1,23 @@
+PassengerEnabled On
+PassengerAppRoot /home/YOUR_USERNAME/public_html/organage
+PassengerBaseURI /
+PassengerPython /home/YOUR_USERNAME/virtualenv/organage/3.11/bin/python
+
+# Prevent directory listing
+Options -Indexes
+
+# Custom error pages (optional)
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+</IfModule>

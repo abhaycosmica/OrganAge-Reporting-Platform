@@ -1,0 +1,1532 @@
+/* OrganAge™ Report Styles */
+
+:root {
+    --bg-dark: #000000;
+    --bg-brown: #2D1810;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B0B0B0;
+    --accent-orange: #FF6B35;
+    
+    /* Organ System Colors */
+    --color-pink: #FFB3C6;
+    --color-salmon: #FF8FA3;
+    --color-red: #FF4757;
+    --color-orange: #FFA500;
+    --color-yellow: #FFE66D;
+    --color-purple: #B565D8;
+    --color-lightpink: #FFC9D9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Report Pages */
+.report-page {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    scroll-snap-align: start;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+/* ========================================
+   PAGE 1: COVER PAGE
+   ======================================== */
+
+.page-cover {
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Desktop: Landscape Layout */
+@media (min-width: 768px) {
+    .cover-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        max-width: 1400px;
+        width: 100%;
+        height: 80vh;
+        align-items: center;
+    }
+    
+    .cover-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding: 2rem 0;
+    }
+}
+
+/* Mobile: Portrait Layout */
+@media (max-width: 767px) {
+    .cover-content {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        max-width: 600px;
+        width: 100%;
+    }
+    
+    .cover-left {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+/* Cover Header */
+.cover-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cover-logo {
+    height: auto;
+    width: auto;
+    max-height: 60px;
+    max-width: 300px;
+    object-fit: contain;
+}
+
+.cover-tagline {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Patient Info */
+.cover-patient-info {
+    margin: 2rem 0;
+}
+
+.patient-name {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.report-date {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+/* Quote */
+.cover-quote {
+    margin: 2rem 0;
+    max-width: 600px;
+}
+
+.cover-quote p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+/* Footer Logo */
+.cover-footer {
+    margin-top: auto;
+}
+
+.cosmica-footer-logo {
+    height: 40px;
+    width: auto;
+    opacity: 0.9;
+}
+
+/* Artwork Image on Page 1 */
+.cover-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.page1-artwork {
+    width: auto;
+    height: auto;
+    max-width: 300px;
+    max-height: 500px;
+    object-fit: contain;
+}
+
+@media (max-width: 767px) {
+    .page1-artwork {
+        max-width: 200px;
+        max-height: 350px;
+    }
+}
+
+/* Geometric Shapes Stack - OLD (not used) */
+.geometric-stack {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Shape Groups */
+.shape-group {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Individual Shapes */
+.shape {
+    position: absolute;
+    opacity: 0.85;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Pink Shapes (Top) */
+.shape-pink-1 {
+    width: 120px;
+    height: 80px;
+    background: var(--color-pink);
+    transform: rotate(-15deg) skew(-5deg);
+    clip-path: polygon(20% 0%, 80% 10%, 90% 80%, 10% 90%);
+}
+
+.shape-pink-2 {
+    width: 100px;
+    height: 70px;
+    background: var(--color-salmon);
+    transform: rotate(25deg) translateX(40px);
+    clip-path: polygon(10% 20%, 85% 0%, 100% 75%, 25% 100%);
+}
+
+.shape-pink-3 {
+    width: 90px;
+    height: 60px;
+    background: var(--color-pink);
+    transform: rotate(-30deg) translateX(-30px) translateY(20px);
+    clip-path: polygon(0% 15%, 75% 5%, 95% 85%, 15% 100%);
+}
+
+/* Light Pink Triangle */
+.shape-lightpink-1 {
+    width: 0;
+    height: 0;
+    border-left: 80px solid transparent;
+    border-right: 80px solid transparent;
+    border-bottom: 120px solid var(--color-lightpink);
+    transform: rotate(10deg);
+    border: none;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    background: var(--color-lightpink);
+    width: 160px;
+    height: 120px;
+}
+
+/* Red Shapes */
+.shape-red-1 {
+    width: 110px;
+    height: 75px;
+    background: var(--color-red);
+    transform: rotate(20deg);
+    clip-path: polygon(15% 10%, 90% 0%, 85% 90%, 5% 100%);
+}
+
+.shape-red-2 {
+    width: 95px;
+    height: 65px;
+    background: #DC143C;
+    transform: rotate(-25deg) translateX(-40px);
+    clip-path: polygon(10% 5%, 80% 15%, 100% 85%, 20% 95%);
+}
+
+/* Orange Shapes */
+.shape-orange-1 {
+    width: 130px;
+    height: 85px;
+    background: var(--color-orange);
+    transform: rotate(15deg);
+    clip-path: polygon(5% 20%, 85% 5%, 95% 80%, 15% 100%);
+}
+
+.shape-orange-2 {
+    width: 105px;
+    height: 70px;
+    background: #FF8C00;
+    transform: rotate(-20deg) translateX(45px);
+    clip-path: polygon(20% 0%, 95% 10%, 90% 90%, 10% 85%);
+}
+
+/* Yellow Shapes */
+.shape-yellow-1 {
+    width: 140px;
+    height: 90px;
+    background: var(--color-yellow);
+    transform: rotate(-10deg);
+    clip-path: polygon(10% 15%, 80% 0%, 100% 75%, 25% 100%);
+}
+
+.shape-yellow-2 {
+    width: 115px;
+    height: 75px;
+    background: #FFD700;
+    transform: rotate(25deg) translateX(-50px);
+    clip-path: polygon(0% 10%, 90% 5%, 85% 95%, 15% 90%);
+}
+
+/* Purple Shapes (Largest Group) */
+.shape-purple-1 {
+    width: 160px;
+    height: 110px;
+    background: var(--color-purple);
+    transform: rotate(5deg);
+    clip-path: polygon(15% 5%, 90% 10%, 95% 85%, 10% 95%);
+}
+
+.shape-purple-2 {
+    width: 145px;
+    height: 100px;
+    background: #9B4FC9;
+    transform: rotate(-15deg) translateX(60px) translateY(-30px);
+    clip-path: polygon(5% 15%, 85% 0%, 100% 80%, 20% 100%);
+}
+
+.shape-purple-3 {
+    width: 135px;
+    height: 95px;
+    background: var(--color-purple);
+    transform: rotate(20deg) translateX(-55px) translateY(25px);
+    clip-path: polygon(10% 10%, 95% 5%, 90% 90%, 5% 95%);
+}
+
+.shape-purple-4 {
+    width: 125px;
+    height: 85px;
+    background: #A855D8;
+    transform: rotate(-25deg) translateY(50px);
+    clip-path: polygon(15% 0%, 100% 15%, 85% 100%, 0% 85%);
+}
+
+/* Light Pink (Lower) */
+.shape-lightpink-2 {
+    width: 120px;
+    height: 80px;
+    background: var(--color-lightpink);
+    transform: rotate(10deg);
+    clip-path: polygon(5% 20%, 80% 5%, 100% 75%, 25% 100%);
+}
+
+.shape-lightpink-3 {
+    width: 100px;
+    height: 65px;
+    background: #FFD4E5;
+    transform: rotate(-20deg) translateX(45px);
+    clip-path: polygon(15% 10%, 90% 0%, 95% 85%, 10% 95%);
+}
+
+/* Red Shapes (Bottom) */
+.shape-red-3 {
+    width: 130px;
+    height: 85px;
+    background: var(--color-red);
+    transform: rotate(-15deg);
+    clip-path: polygon(10% 5%, 85% 15%, 100% 80%, 20% 100%);
+}
+
+.shape-red-4 {
+    width: 110px;
+    height: 70px;
+    background: #E74C3C;
+    transform: rotate(25deg) translateX(-50px);
+    clip-path: polygon(0% 15%, 90% 5%, 95% 90%, 15% 95%);
+}
+
+.shape-red-5 {
+    width: 95px;
+    height: 60px;
+    background: var(--color-red);
+    transform: rotate(-30deg) translateX(40px) translateY(20px);
+    clip-path: polygon(5% 10%, 100% 0%, 90% 95%, 10% 85%);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+    .patient-name {
+        font-size: 2.5rem;
+    }
+    
+    .report-date {
+        font-size: 1.25rem;
+    }
+    
+    .geometric-stack {
+        height: 500px;
+        max-width: 350px;
+    }
+    
+    /* Scale down shapes for mobile */
+    .shape {
+        transform: scale(0.8);
+    }
+}
+
+/* ========================================
+   PAGE 2: INTRODUCTION
+   ======================================== */
+
+.page-intro {
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background shapes removed for pure black background */
+
+/* Desktop: Landscape Layout */
+@media (min-width: 768px) {
+    .intro-content {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 4rem;
+        max-width: 1400px;
+        width: 100%;
+        height: 80vh;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .intro-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding: 2rem 0;
+    }
+    
+    .intro-right {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        height: 100%;
+        justify-content: center;
+    }
+}
+
+/* Mobile: Portrait Layout */
+@media (max-width: 767px) {
+    .intro-content {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        max-width: 600px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .intro-left {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .intro-right {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+/* Large Title */
+.intro-title {
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.title-line {
+    display: block;
+}
+
+@media (max-width: 767px) {
+    .intro-title {
+        font-size: 4rem;
+    }
+}
+
+/* Footer Logos on Page 2 */
+.intro-footer-logo {
+    margin-top: auto;
+}
+
+.organage-footer-logo {
+    height: 60px;
+    width: auto;
+}
+
+/* Text Content */
+.intro-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.intro-paragraph {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Illustration */
+.intro-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+.organ-illustration {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+@media (max-width: 767px) {
+    .organ-illustration {
+        max-width: 350px;
+    }
+}
+
+/* Cosmica Logo on Right */
+.intro-cosmica-logo {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cosmica-footer-logo {
+    height: 45px;
+    width: auto;
+    opacity: 0.9;
+}
+
+/* ========================================
+   PAGE 3: ORGANAGE OVERVIEW
+   ======================================== */
+
+.page-overview {
+    background: var(--bg-dark);
+    padding: 3rem 2rem;
+    min-height: 100vh;
+}
+
+.overview-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header */
+.overview-header {
+    margin-bottom: 2rem;
+}
+
+.overview-title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+.organage-orange {
+    color: var(--accent-orange);
+    font-weight: 700;
+}
+
+/* Top Section: Summary + Circles */
+.overview-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+    .overview-top {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Summary Box */
+.summary-box {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.summary-list {
+    list-style: none;
+    margin-bottom: 1.5rem;
+}
+
+.summary-list li {
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--text-secondary);
+}
+
+.summary-list strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.summary-description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Age Circles */
+.age-circles {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.age-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.chronological-circle {
+    background: rgba(100, 100, 100, 0.2);
+}
+
+.systemic-circle.positive {
+    background: rgba(0, 200, 100, 0.2);
+    border-color: #00C896;
+}
+
+.systemic-circle.negative {
+    background: rgba(255, 70, 80, 0.2);
+    border-color: #FF4757;
+}
+
+.circle-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+}
+
+.circle-age {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.delta-super {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-left: 0.25rem;
+}
+
+.positive .delta-super {
+    color: #00C896;
+}
+
+.negative .delta-super {
+    color: #FF4757;
+}
+
+/* Body Diagram Section */
+.body-diagram-section {
+    margin-top: 3rem;
+}
+
+.body-diagram-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.body-diagram {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Organ Overlays - Positioned inside diagram boxes */
+.organ-overlay {
+    position: absolute;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.organ-age-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Delta colors - proper superscripts */
+sup.delta-green,
+sup.delta-red,
+sup.delta-neutral {
+    font-size: 1.1rem;
+    font-weight: 600;
+    position: relative;
+    top: -0.5em;
+    line-height: 0;
+    margin-left: 0.2rem;
+}
+
+sup.delta-green {
+    color: #00C896;
+}
+
+sup.delta-red {
+    color: #FF4757;
+}
+
+sup.delta-neutral {
+    color: var(--text-secondary);
+}
+
+/* Positioning for each organ system */
+.organ-nervous {
+    position: absolute;
+    top: 7.7%;
+    left: 8.2%;
+}
+
+.organ-mental {
+    position: absolute;
+    top: 7.7%;
+    left: 83.5%;
+}
+
+.organ-circulatory {
+    position: absolute;
+    top: 20.6%;
+    left: 5%;
+}
+
+.organ-respiratory {
+    position: absolute;
+    top: 20.6%;
+    left: 85%;
+}
+
+.organ-metabolic {
+    position: absolute;
+    top: 34.8%;
+    left: 5.8%;
+}
+
+.organ-digestive {
+    position: absolute;
+    top: 34.8%;
+    left: 84.5%;
+}
+
+.organ-musculoskeletal {
+    position: absolute;
+    top: 51.5%;
+    left: 12%;
+}
+
+.organ-infectious {
+    position: absolute;
+    top: 51.5%;
+    left: 78.5%;
+}
+
+.organ-genitourinary {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .body-diagram-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .body-diagram-container {
+        max-width: 90%;
+    }
+    
+    .organ-overlay {
+        font-size: 1.2rem;
+    }
+    
+    .organ-age-number {
+        font-size: 2rem;
+    }
+}
+    margin-top: 3rem;
+}
+
+.body-diagram-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.body-diagram {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+}
+
+/* Organ Cards - Positioned around body */
+.organ-card {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.organ-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.organ-age {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Delta colors */
+.delta-green {
+    color: #00C896;
+}
+
+.delta-red {
+    color: #FF4757;
+}
+
+.delta-neutral {
+    color: var(--text-secondary);
+}
+
+/* Positioning for each organ system - Desktop */
+@media (min-width: 768px) {
+    .organ-nervous {
+        top: 8%;
+        left: 8%;
+    }
+    
+    .organ-mental {
+        top: 8%;
+        right: 8%;
+    }
+    
+    .organ-circulatory {
+        top: 35%;
+        left: 2%;
+    }
+    
+    .organ-respiratory {
+        top: 35%;
+        right: 2%;
+    }
+    
+    .organ-metabolic {
+        top: 50%;
+        left: 2%;
+    }
+    
+    .organ-digestive {
+        top: 50%;
+        right: 2%;
+    }
+    
+    .organ-musculoskeletal {
+        bottom: 20%;
+        left: 8%;
+    }
+    
+    .organ-infectious {
+        bottom: 20%;
+        right: 8%;
+    }
+    
+    .organ-genitourinary {
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Mobile positioning */
+@media (max-width: 767px) {
+    .body-diagram-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .organ-card {
+        position: relative;
+        margin: 0.5rem;
+        width: fit-content;
+    }
+    
+    .body-diagram {
+        max-width: 400px;
+    }
+}
+
+/* Page 4 Placeholder */
+.page-4 {
+    background: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-content {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.page-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-orange);
+}
+
+.page-content p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+/* Page 4: Force Graph */
+.page-forcegraph {
+    background: #000000;
+    padding: 0;
+    margin: 0;
+}
+
+.force-graph-iframe {
+    width: 100%;
+    height: 100vh;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+/* ========================================
+   PAGE 3: AGE SPINNERS
+   ======================================== */
+
+.page-spinners {
+    background: #000000;
+    padding: 3rem 2rem;
+    min-height: 100vh;
+}
+
+.spinners-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.spinners-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.spinners-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.spinners-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+}
+
+.spinners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 3rem;
+    padding: 2rem 0;
+}
+
+.spinner-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.spinner-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.spinner-system-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.spinner-container {
+    position: relative;
+}
+
+.age-spinner {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.delta-badge {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.delta-badge.aging-faster {
+    background: rgba(255, 71, 87, 0.1);
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    color: #FF4757;
+}
+
+.delta-badge.aging-slower {
+    background: rgba(0, 200, 150, 0.1);
+    border: 1px solid rgba(0, 200, 150, 0.3);
+    color: #00C896;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .spinners-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .spinner-card {
+        padding: 1.5rem;
+    }
+    
+    .spinners-title {
+        font-size: 2rem;
+    }
+}
+/* ========================================
+   PAGE 7: RECOMMENDATIONS
+   ======================================== */
+
+.page-recommendations {
+    background: #000000;
+    padding: 3rem 2rem;
+    min-height: 100vh;
+}
+
+.recommendations-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.recommendations-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.recommendations-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.recommendations-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+}
+
+/* Tab Navigation */
+.recs-tabs {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0;
+}
+
+.recs-tab {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.recs-tab:hover {
+    color: var(--text-primary);
+}
+
+.recs-tab.active {
+    color: var(--accent-orange);
+    border-bottom-color: var(--accent-orange);
+}
+
+.tab-icon {
+    font-size: 1.5rem;
+}
+
+/* Tab Content */
+.recs-tab-content {
+    display: none;
+}
+
+.recs-tab-content.active {
+    display: block;
+}
+
+/* Cards Grid */
+.recs-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.exercise-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.food-grid, .suppl-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* Individual Cards */
+.rec-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.rec-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.rec-card.recommend {
+    border-left: 3px solid #00C896;
+}
+
+.rec-card.avoid {
+    border-left: 3px solid #FF4757;
+}
+
+.rec-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.rec-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.rec-relevance {
+    font-size: 0.875rem;
+    color: var(--accent-orange);
+    font-weight: 700;
+    margin-left: 1rem;
+}
+
+.rec-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.intensity-badge, .food-group-badge, .suppl-category-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    color: var(--accent-orange);
+}
+
+.duration-text {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.rec-description {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.rec-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.benefit-item {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.nutrients-list, .dose-info {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nutrients-list strong, .dose-info strong {
+    color: var(--text-primary);
+}
+
+/* Food Sections */
+.food-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.food-section {
+    margin-bottom: 2rem;
+}
+
+.section-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.section-icon {
+    font-size: 1.75rem;
+}
+
+.recommend-section .section-heading {
+    color: #00C896;
+}
+
+.avoid-section .section-heading {
+    color: #FF4757;
+}
+
+/* No Recommendations */
+.no-recs {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+}
+
+.no-recs p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .recs-tabs {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .recs-tab {
+        justify-content: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .recs-tab.active {
+        border-left: 3px solid var(--accent-orange);
+        border-bottom-color: transparent;
+    }
+    
+    .recs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .recommendations-title {
+        font-size: 2rem;
+    }
+}
+
+/* ========================================
+   PAGE 3: BODY DIAGRAM - CSS BUILT
+   ======================================== */
+
+.body-diagram-css-built {
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.diagram-container-css {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 900px;
+}
+
+/* SVG Connector Layer */
+.connector-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.human-figure-css {
+    width: auto;
+    max-width: 600px;
+    height: auto;
+    z-index: 1;
+}
+
+/* System Boxes */
+.system-box {
+    position: absolute;
+    z-index: 10;
+}
+
+.box-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 1rem 1.5rem;
+    min-width: 210px;
+}
+
+.icon-circle-css {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.system-icon-css {
+    width: 60px;
+    height: 60px;
+}
+
+/* System Data Layout - UPDATED v2 */
+.system-data-css {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.system-label-css {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1;
+    order: 1; /* Label appears first */
+}
+
+.system-age-css {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    order: 2; /* Age appears second */
+}
+
+.system-age-css sup {
+    font-size: 1.1rem;
+    font-weight: 600;
+    position: relative;
+    top: -0.8em;
+    margin-left: 0.15rem;
+    line-height: 0;
+}
+
+.system-age-css sup.red {
+    color: #FF4757;
+}
+
+.system-age-css sup.green {
+    color: #00C896;
+}
+
+
+/* Box Positions */
+.system-nervous {
+    top: 6%;
+    left: 8%;
+}
+
+.system-mental {
+    top: 6%;
+    right: 8%;
+}
+
+.system-circulatory {
+    top: 26%;
+    left: 2%;
+}
+
+.system-respiratory {
+    top: 26%;
+    right: 2%;
+}
+
+.system-metabolic {
+    top: 46%;
+    left: 2%;
+}
+
+.system-digestive {
+    top: 46%;
+    right: 2%;
+}
+
+.system-musculoskeletal {
+    bottom: 20%;
+    left: 8%;
+}
+
+.system-infectious {
+    bottom: 20%;
+    right: 8%;
+}
+
+.system-genitourinary {
+    bottom: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .diagram-container-css {
+        flex-direction: column;
+        padding: 2rem 1rem;
+        min-height: auto;
+    }
+    
+    .human-figure-css {
+        max-width: 200px;
+    }
+    
+    .system-box {
+        position: relative !important;
+        margin: 0.75rem auto;
+        transform: none !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+    }
+    
+    .connector-svg {
+        display: none;
+    }
+}
