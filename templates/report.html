@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrganAge™ Report - {{ patient_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/report.css') }}?v=4.0">
+</head>
+<body>
+    <!-- Page 1: Cover Page -->
+    <section class="report-page page-cover">
+        <div class="cover-content">
+            <!-- Left Side Content -->
+            <div class="cover-left">
+                <div class="cover-header">
+                    <img src="{{ url_for('static', filename='images/organage_logo.png') }}" alt="OrganAge" class="cover-logo">
+                    <p class="cover-tagline">Organ Specific Longevity Insights</p>
+                </div>
+                
+                <div class="cover-patient-info">
+                    <h1 class="patient-name">{{ patient_name }}</h1>
+                    <p class="report-date">{{ report_date.split('T')[0] if report_date else '' }}</p>
+                </div>
+                
+                <div class="cover-quote">
+                    <p>Aging is a mosaic process. Each organ ages with its own molecular signature — and that's where precision longevity begins.</p>
+                </div>
+                
+                <div class="cover-footer">
+                    <img src="{{ url_for('static', filename='images/cosmica_logo.png') }}" alt="Cosmica Biosciences" class="cosmica-footer-logo">
+                </div>
+            </div>
+            
+            <!-- Right Side: Artwork Image -->
+            <div class="cover-right">
+                <img src="{{ url_for('static', filename='images/page1_artwork.png') }}" alt="Organ Systems Artwork" class="page1-artwork">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Page 2: Introduction -->
+    <section class="report-page page-intro">
+        <div class="intro-content">
+            <!-- Left Side: Large Title -->
+            <div class="intro-left">
+                <h1 class="intro-title">
+                    <span class="title-line">Elevate</span>
+                    <span class="title-line">Every</span>
+                    <span class="title-line">System.</span>
+                </h1>
+                
+                <div class="intro-footer-logo">
+                    <img src="{{ url_for('static', filename='images/organage_logo.png') }}" alt="OrganAge" class="organage-footer-logo">
+                </div>
+            </div>
+            
+            <!-- Right Side: Explanation Text & Illustration -->
+            <div class="intro-right">
+                <div class="intro-text-content">
+                    <p class="intro-paragraph">
+                        OrganAge™ is an organ-specific biological age assessment that measures how each of your body's major systems is aging relative to your chronological age.
+                    </p>
+                    
+                    <p class="intro-paragraph">
+                        Built on validated clinical biochemistry and statistical models trained on 450,000+ individuals, OrganAge™ does more than evaluate biomarkers in isolation. It models how biomarkers interact across systems, capturing the complex biological relationships that drive aging.
+                    </p>
+                    
+                    <p class="intro-paragraph">
+                        By revealing which systems are aging faster or slower than expected, OrganAge™ identifies emerging vulnerabilities and optimization opportunities with organ level clarity, enabling targeted, proactive longevity strategies long before symptoms appear.
+                    </p>
+                </div>
+                
+                <div class="intro-illustration">
+                    <img src="{{ url_for('static', filename='images/organ_systems_illustration.png') }}" alt="Organ Systems" class="organ-illustration">
+                </div>
+                
+                <div class="intro-cosmica-logo">
+                    <img src="{{ url_for('static', filename='images/cosmica_logo.png') }}" alt="Cosmica Biosciences" class="cosmica-footer-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Page 4: OrganAge Overview -->
+    <section class="report-page page-overview">
+        <div class="overview-content">
+            <!-- Header -->
+            <div class="overview-header">
+                <h1 class="overview-title">Your <span class="organage-orange">organage</span><sup>TM</sup> Overview</h1>
+            </div>
+            
+            <!-- Top Section: Summary + Age Circles -->
+            <div class="overview-top">
+                <!-- Left: Summary -->
+                <div class="summary-box">
+                    <h2 class="summary-title">Summary</h2>
+                    <ul class="summary-list">
+                        {% if primary_driver %}
+                        <li><strong>Primary Aging Driver =</strong> {{ primary_driver }} system</li>
+                        {% endif %}
+                        
+                        {% if secondary_contributors %}
+                        <li><strong>Secondary Aging Contributors =</strong> 
+                            {% for system in secondary_contributors %}
+                                {{ system }} system{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </li>
+                        {% endif %}
+                        
+                        {% if most_resilient %}
+                        <li><strong>Most Resilient =</strong> 
+                            {% for system in most_resilient %}
+                                {{ system }} system{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <p class="summary-description">
+                        This snapshot gives you a clear, personalized starting point: identifying which systems are driving 
+                        accelerated aging and which are helping offset it, allowing for targeted, system-specific interventions 
+                        outlined later in this report.
+                    </p>
+                </div>
+                
+                <!-- Right: Age Circles -->
+                <div class="age-circles">
+                    <div class="age-circle chronological-circle">
+                        <p class="circle-label">Chronological<br>Age</p>
+                        <p class="circle-age">{{ chronological_age }}</p>
+                    </div>
+                    <div class="age-circle systemic-circle {% if systemic_delta < 0 %}positive{% else %}negative{% endif %}">
+                        <p class="circle-label">Systemic<br>Age</p>
+                        <p class="circle-age">{{ systemic_age }}<sup class="delta-super">{% if systemic_delta > 0 %}+{% endif %}{{ systemic_delta }}</sup></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Body Diagram Section - Built with CSS -->
+            <div class="body-diagram-css-built">
+                <div class="diagram-container-css">
+                    <!-- SVG for all connector lines -->
+                    <svg class="connector-svg" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Nervous - from top-left box to head -->
+                        <path class="connector-path" d="M 190 100 L 190 160 L 400 160 L 400 180" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+                        
+                        <!-- Mental - from top-right box to head -->
+                        <path class="connector-path" d="M 1210 100 L 1210 160 L 1000 160 L 1000 180" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+                        
+                        <!-- Circulatory - from left box to chest -->
+                        <path class="connector-path" d="M 240 280 L 350 280 L 350 300" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+                        
+                        <!-- Respiratory - from right box to chest -->
+                        <path class="connector-path" d="M 1160 280 L 1050 280 L 1050 300" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+                        
+                        <!-- Metabolic - from left box to abdomen -->
+                        <path class="connector-path" d="M 240 440 L 380 440 L 380 420" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+                        
+                        <!-- Digestive - from right box to abdomen -->
+                        <path class="connector-path" d="M 1160 440 L 1020 440 L 1020 420" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+                        
+                        <!-- Musculoskeletal - from left box to lower body -->
+                        <path class="connector-path" d="M 280 600 L 280 550 L 450 550" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+                        
+                        <!-- Infectious - from right box to lower body -->
+                        <path class="connector-path" d="M 1120 600 L 1120 550 L 950 550" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+                        
+                        <!-- Genitourinary - from bottom box to pelvis -->
+                        <path class="connector-path" d="M 700 720 L 700 600" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+                    </svg>
+                    
+                    <!-- Central human figure -->
+                    <img src="{{ url_for('static', filename='images/human_figure.png') }}" alt="Human Body" class="human-figure-css">
+                    
+                    <!-- CSS-Built Boxes for Each System -->
+                    {% for organ in organs_data %}
+                    <div class="system-box system-{{ organ.system.lower() }}">
+                        <div class="box-content">
+                            <div class="icon-circle-css">
+                                <img src="{{ url_for('static', filename='images/organs/' + organ.system.lower() + '.png') }}" 
+                                     alt="{{ organ.system }}" class="system-icon-css">
+                            </div>
+                            <div class="system-data-css">
+                                <div class="system-label-css">{{ organ.system }}</div>
+                                <div class="system-age-css">{{ organ.age }}<sup class="{% if organ.delta > 0 %}red{% else %}green{% endif %}">{% if organ.delta > 0 %}+{% endif %}{{ organ.delta|int }}</sup></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 3: Age Spinners -->
+    <section class="report-page page-spinners">
+        <div class="spinners-content">
+            <div class="spinners-header">
+                <h1 class="spinners-title">System-by-System Age Analysis</h1>
+                <p class="spinners-subtitle">Chronological Age vs. Biological Age for Each Organ System</p>
+            </div>
+            
+            <div class="spinners-grid">
+                {% for organ in organs_data %}
+                <div class="spinner-card">
+                    <h3 class="spinner-system-name">{{ organ.system }} System</h3>
+                    
+                    <div class="spinner-container">
+                        {% set bio_age = organ.age|int %}
+                        {% set is_older = bio_age > chronological_age %}
+                        {% set age_min = chronological_age - 20 %}
+                        {% set age_max = chronological_age + 20 %}
+                        {% set range_span = age_max - age_min %}
+                        
+                        <svg class="age-spinner" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background ticks - colored based on biological age range -->
+                            <g class="tick-marks">
+                                {% for i in range(age_min, age_max + 1) %}
+                                {% set tick_x = 10 + (i - age_min) * (380 / range_span) %}
+                                {% set in_range = (i >= [bio_age, chronological_age]|min and i <= [bio_age, chronological_age]|max) %}
+                                <line x1="{{ tick_x }}" 
+                                      y1="100" 
+                                      x2="{{ tick_x }}" 
+                                      y2="{% if i % 10 == 0 %}135{% elif i % 5 == 0 %}130{% else %}125{% endif %}" 
+                                      stroke="{% if in_range %}{% if is_older %}#FF4757{% else %}#00C896{% endif %}{% else %}white{% endif %}" 
+                                      stroke-width="{% if i % 10 == 0 %}2{% else %}1{% endif %}"
+                                      opacity="{% if in_range %}0.8{% else %}0.3{% endif %}"/>
+                                {% endfor %}
+                            </g>
+                            
+                            <!-- Chronological Age marker - TOP SIDE -->
+                            <g class="chrono-marker">
+                                {% set chrono_x = 10 + (chronological_age - age_min) * (380 / range_span) %}
+                                <!-- Bar - extends to cover ticks -->
+                                <line x1="{{ chrono_x }}" 
+                                      y1="60" 
+                                      x2="{{ chrono_x }}" 
+                                      y2="135" 
+                                      stroke="white" 
+                                      stroke-width="3"/>
+                                <!-- Age number -->
+                                <text x="{{ chrono_x }}" 
+                                      y="40" 
+                                      fill="white" 
+                                      font-size="16" 
+                                      font-weight="700" 
+                                      text-anchor="middle">{{ chronological_age }}</text>
+                                <!-- Label -->
+                                <text x="{{ chrono_x }}" 
+                                      y="53" 
+                                      fill="white" 
+                                      font-size="9" 
+                                      text-anchor="middle" 
+                                      opacity="0.7">Chronological Age</text>
+                            </g>
+                            
+                            <!-- Biological Age marker - BOTTOM SIDE -->
+                            <g class="bio-range">
+                                {% set bio_x = 10 + (bio_age - age_min) * (380 / range_span) %}
+                                
+                                <!-- Bar - extends to cover ticks -->
+                                <line x1="{{ bio_x }}" 
+                                      y1="100" 
+                                      x2="{{ bio_x }}" 
+                                      y2="165" 
+                                      stroke="{% if is_older %}#FF4757{% else %}#00C896{% endif %}" 
+                                      stroke-width="3"/>
+                                
+                                <!-- Age number -->
+                                <text x="{{ bio_x }}" 
+                                      y="185" 
+                                      fill="{% if is_older %}#FF4757{% else %}#00C896{% endif %}" 
+                                      font-size="16" 
+                                      font-weight="700" 
+                                      text-anchor="middle">{{ bio_age }}</text>
+                                <!-- Label -->
+                                <text x="{{ bio_x }}" 
+                                      y="198" 
+                                      fill="{% if is_older %}#FF4757{% else %}#00C896{% endif %}" 
+                                      font-size="9" 
+                                      text-anchor="middle">{{ organ.system }} OrganAge</text>
+                            </g>
+                        </svg>
+                        
+                        <!-- Delta indicator -->
+                        <div class="delta-badge {% if is_older %}aging-faster{% else %}aging-slower{% endif %}">
+                            {% if organ.delta > 0 %}+{% endif %}{{ organ.delta|int }} years
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Page 4 will go here -->
+    <!-- Page 4: Force Graph - Top Accelerating Biomarkers -->
+    <section class="report-page page-forcegraph">
+        <iframe src="{{ url_for('static', filename='force_graph.html') }}" 
+                class="force-graph-iframe" 
+                title="Top Accelerating Biomarkers Force Graph">
+        </iframe>
+    </section>
+    
+    <!-- Page 5: Force Graph - Top Protective Biomarkers -->
+    <section class="report-page page-forcegraph">
+        <iframe src="{{ url_for('static', filename='force_graph_protective.html') }}" 
+                class="force-graph-iframe" 
+                title="Top Protective Biomarkers Force Graph">
+        </iframe>
+    </section>
+    
+    <!-- Page 7: Recommendations -->
+    <section class="report-page page-recommendations">
+        <div class="recommendations-content">
+            <div class="recommendations-header">
+                <h1 class="recommendations-title">Your Personalized Recommendations</h1>
+                <p class="recommendations-subtitle">Evidence-based interventions tailored to your OrganAge profile</p>
+            </div>
+            
+            <!-- Tab Navigation -->
+            <div class="recs-tabs">
+                <button class="recs-tab active" data-tab="exercise">
+                    <span class="tab-icon">🏃</span>
+                    <span class="tab-label">Exercise</span>
+                </button>
+                <button class="recs-tab" data-tab="food">
+                    <span class="tab-icon">🥗</span>
+                    <span class="tab-label">Nutrition</span>
+                </button>
+                <button class="recs-tab" data-tab="supplements">
+                    <span class="tab-icon">💊</span>
+                    <span class="tab-label">Supplements</span>
+                </button>
+            </div>
+            
+            <!-- Exercise Tab Content -->
+            <div class="recs-tab-content active" id="tab-exercise">
+                {% if exer_recs %}
+                <div class="recs-grid exercise-grid">
+                    {% for exercise in exer_recs %}
+                    <div class="rec-card exercise-card" data-relevance="{{ exercise.exercise_relevance }}">
+                        <div class="rec-card-header">
+                            <h3 class="rec-name">{{ exercise.exercise_name }}</h3>
+                            <div class="rec-relevance">
+                                {{ exercise.exercise_relevance }}
+                            </div>
+                        </div>
+                        <div class="rec-meta">
+                            <span class="intensity-badge">{{ exercise.intensities }}</span>
+                            <span class="duration-text">{{ exercise.durations }}</span>
+                        </div>
+                        <div class="rec-benefits">
+                            {% set benefits_list = exercise.benefits.split('|') %}
+                            {% for benefit in benefits_list[:3] %}
+                            <div class="benefit-item">• {{ benefit.strip() }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-recs">
+                    <p>No exercise recommendations available. Upload the exercise CSV file to see personalized recommendations.</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Food Tab Content -->
+            <div class="recs-tab-content" id="tab-food">
+                {% if food_recs.recommend or food_recs.avoid %}
+                <div class="food-sections">
+                    <!-- Recommended Foods -->
+                    <div class="food-section recommend-section">
+                        <h2 class="section-heading">
+                            <span class="section-icon">✓</span>
+                            Recommended Foods
+                        </h2>
+                        <div class="recs-grid food-grid">
+                            {% for food in food_recs.recommend %}
+                            <div class="rec-card food-card recommend" data-relevance="{{ food.food_relevance }}">
+                                <div class="rec-card-header">
+                                    <h3 class="rec-name">{{ food.food_name }}</h3>
+                                    <div class="rec-relevance">{{ food.food_relevance }}</div>
+                                </div>
+                                <div class="rec-meta">
+                                    <span class="food-group-badge">{{ food.food_group }}</span>
+                                </div>
+                                <p class="rec-description">{{ food.main_health_benefits }}</p>
+                                <div class="nutrients-list">
+                                    <strong>Key Nutrients:</strong> {{ food.key_nutrients }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Foods to Avoid -->
+                    <div class="food-section avoid-section">
+                        <h2 class="section-heading">
+                            <span class="section-icon">✗</span>
+                            Foods to Reduce
+                        </h2>
+                        <div class="recs-grid food-grid">
+                            {% for food in food_recs.avoid %}
+                            <div class="rec-card food-card avoid" data-relevance="{{ food.food_relevance }}">
+                                <div class="rec-card-header">
+                                    <h3 class="rec-name">{{ food.food_name }}</h3>
+                                    <div class="rec-relevance">{{ food.food_relevance }}</div>
+                                </div>
+                                <div class="rec-meta">
+                                    <span class="food-group-badge">{{ food.food_group }}</span>
+                                </div>
+                                <p class="rec-description">{{ food.main_health_benefits }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="no-recs">
+                    <p>No food recommendations available. Upload the food CSV file to see personalized nutrition guidance.</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Supplements Tab Content -->
+            <div class="recs-tab-content" id="tab-supplements">
+                {% if suppl_recs.recommend or suppl_recs.avoid %}
+                <div class="food-sections">
+                    <!-- Recommended Supplements -->
+                    <div class="food-section recommend-section">
+                        <h2 class="section-heading">
+                            <span class="section-icon">✓</span>
+                            Recommended Supplements
+                        </h2>
+                        <div class="recs-grid suppl-grid">
+                            {% for suppl in suppl_recs.recommend %}
+                            <div class="rec-card suppl-card recommend" data-relevance="{{ suppl.suppl_relevance }}">
+                                <div class="rec-card-header">
+                                    <h3 class="rec-name">{{ suppl.suppl_name }}</h3>
+                                    <div class="rec-relevance">{{ suppl.suppl_relevance }}</div>
+                                </div>
+                                <div class="rec-meta">
+                                    <span class="suppl-category-badge">{{ suppl.suppl_category }}</span>
+                                </div>
+                                <p class="rec-description">{{ suppl.suppl_description }}</p>
+                                {% if suppl.daily_dose and suppl.daily_dose != 'NA' %}
+                                <div class="dose-info">
+                                    <strong>Suggested Dose:</strong> {{ suppl.daily_dose }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Supplements to Avoid -->
+                    <div class="food-section avoid-section">
+                        <h2 class="section-heading">
+                            <span class="section-icon">✗</span>
+                            Supplements to Avoid
+                        </h2>
+                        <div class="recs-grid suppl-grid">
+                            {% for suppl in suppl_recs.avoid %}
+                            <div class="rec-card suppl-card avoid" data-relevance="{{ suppl.suppl_relevance }}">
+                                <div class="rec-card-header">
+                                    <h3 class="rec-name">{{ suppl.suppl_name }}</h3>
+                                    <div class="rec-relevance">{{ suppl.suppl_relevance }}</div>
+                                </div>
+                                <div class="rec-meta">
+                                    <span class="suppl-category-badge">{{ suppl.suppl_category }}</span>
+                                </div>
+                                <p class="rec-description">{{ suppl.suppl_description }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="no-recs">
+                    <p>No supplement recommendations available. Upload the supplement CSV file to see personalized supplement guidance.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    
+    <script src="{{ url_for('static', filename='js/report.js') }}"></script>
+</body>
+</html>

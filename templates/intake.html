@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrganAge™ - Patient Intake</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/organage_logo.png') }}" alt="OrganAge" class="organage-logo">
+                <p class="tagline">Organ Specific Longevity Insights</p>
+            </div>
+            <img src="{{ url_for('static', filename='images/cosmica_logo.png') }}" alt="Cosmica Biosciences" class="cosmica-logo">
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="intro-section">
+                <h1 class="page-title">Patient Intake</h1>
+                <p class="intro-text">
+                    Upload patient data to generate a comprehensive OrganAge™ report. 
+                    Enter patient details and upload both CSV files to begin.
+                </p>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="flash-message flash-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Intake Form -->
+            <form action="{{ url_for('upload_files') }}" method="POST" enctype="multipart/form-data" class="intake-form">
+                
+                <!-- Patient Information -->
+                <div class="form-section">
+                    <h2 class="section-title">Patient Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="patient_name" class="form-label">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="patient_name" 
+                            name="patient_name" 
+                            class="form-input" 
+                            placeholder="Enter patient's full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date_of_birth" class="form-label">Date of Birth</label>
+                        <input 
+                            type="date" 
+                            id="date_of_birth" 
+                            name="date_of_birth" 
+                            class="form-input" 
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- File Upload Section -->
+                <div class="form-section">
+                    <h2 class="section-title">Upload Data Files</h2>
+                    
+                    <!-- Results File -->
+                    <div class="file-upload-container">
+                        <label class="file-upload-label">
+                            <span class="file-label-text">OrganAge Results (CSV)</span>
+                            <span class="file-requirement">Required • CSV format</span>
+                        </label>
+                        <div class="dropzone" id="dropzone-results">
+                            <input 
+                                type="file" 
+                                id="results_file" 
+                                name="results_file" 
+                                accept=".csv" 
+                                class="file-input"
+                                required
+                            >
+                            <div class="dropzone-content">
+                                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <p class="dropzone-text">
+                                    <span class="highlight">Click to upload</span> or drag and drop
+                                </p>
+                                <p class="dropzone-subtext">df_results.csv</p>
+                            </div>
+                            <div class="file-preview" style="display: none;">
+                                <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                <span class="file-name"></span>
+                                <button type="button" class="remove-file">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contributions File -->
+                    <div class="file-upload-container">
+                        <label class="file-upload-label">
+                            <span class="file-label-text">Biomarker Contributions (CSV)</span>
+                            <span class="file-requirement">Required • CSV format</span>
+                        </label>
+                        <div class="dropzone" id="dropzone-contributions">
+                            <input 
+                                type="file" 
+                                id="contributions_file" 
+                                name="contributions_file" 
+                                accept=".csv" 
+                                class="file-input"
+                                required
+                            >
+                            <div class="dropzone-content">
+                                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <p class="dropzone-text">
+                                    <span class="highlight">Click to upload</span> or drag and drop
+                                </p>
+                                <p class="dropzone-subtext">df_contributions.csv</p>
+                            </div>
+                            <div class="file-preview" style="display: none;">
+                                <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                <span class="file-name"></span>
+                                <button type="button" class="remove-file">×</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Optional Recommendation Files -->
+                    <div class="file-upload-optional-section">
+                        <p class="optional-header">Optional Recommendation Files</p>
+                        
+                        <!-- Food Recommendations -->
+                        <div class="file-upload-container">
+                            <label class="file-upload-label">
+                                <span class="file-label-text">Food Recommendations</span>
+                                <span class="file-requirement">Optional • CSV format</span>
+                            </label>
+                            <div class="dropzone" id="dropzone-food">
+                                <input type="file" id="food_file" name="food_file" accept=".csv" class="file-input">
+                                <div class="dropzone-content">
+                                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    <p class="dropzone-text">
+                                        <span class="highlight">Click to upload</span> or drag and drop
+                                    </p>
+                                    <p class="dropzone-subtext">food.csv</p>
+                                </div>
+                                <div class="file-preview" style="display: none;">
+                                    <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                    </svg>
+                                    <span class="file-name"></span>
+                                    <button type="button" class="remove-file">×</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Supplement Recommendations -->
+                        <div class="file-upload-container">
+                            <label class="file-upload-label">
+                                <span class="file-label-text">Supplement Recommendations</span>
+                                <span class="file-requirement">Optional • CSV format</span>
+                            </label>
+                            <div class="dropzone" id="dropzone-suppl">
+                                <input type="file" id="suppl_file" name="suppl_file" accept=".csv" class="file-input">
+                                <div class="dropzone-content">
+                                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    <p class="dropzone-text">
+                                        <span class="highlight">Click to upload</span> or drag and drop
+                                    </p>
+                                    <p class="dropzone-subtext">suppl.csv</p>
+                                </div>
+                                <div class="file-preview" style="display: none;">
+                                    <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                    </svg>
+                                    <span class="file-name"></span>
+                                    <button type="button" class="remove-file">×</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Exercise Recommendations -->
+                        <div class="file-upload-container">
+                            <label class="file-upload-label">
+                                <span class="file-label-text">Exercise Recommendations</span>
+                                <span class="file-requirement">Optional • CSV format</span>
+                            </label>
+                            <div class="dropzone" id="dropzone-exer">
+                                <input type="file" id="exer_file" name="exer_file" accept=".csv" class="file-input">
+                                <div class="dropzone-content">
+                                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    <p class="dropzone-text">
+                                        <span class="highlight">Click to upload</span> or drag and drop
+                                    </p>
+                                    <p class="dropzone-subtext">exer.csv</p>
+                                </div>
+                                <div class="file-preview" style="display: none;">
+                                    <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                    </svg>
+                                    <span class="file-name"></span>
+                                    <button type="button" class="remove-file">×</button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">
+                        Generate Report
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Cosmica Biosciences. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+</body>
+</html>
